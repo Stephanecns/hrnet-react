@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -35,4 +36,135 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Style général pour la page */
+.create-employee-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: grid;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  text-align: center;
+  font-weight: 700;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+input, select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: grey;
+}
+
+/* Style pour disposer les champs deux par deux */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.view-employee-link {
+  text-align: center; /* Centre le texte */
+  margin-top: 20px; /* Espace au-dessus du lien */
+}
+
+.view-employee-link a {
+  text-decoration: none; /* Supprime le soulignement */
+  color: var(--primary-color); /* Utilise la couleur principale */
+  font-size: 18px; /* Taille du texte */
+  font-weight: 500; /* Épaisseur du texte */
+}
+
+.view-employee-link a:hover {
+  color: var(--secondary-color); /* Change la couleur au survol */
+}
+
+ul {
+  list-style-type: none; /* Supprime le point noir des listes */
+  padding-left: 0; /* Supprime le padding gauche des listes */
+}
+
+
+/* Centrer le lien Home sous la table DataTable */
+.centered-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.centered-link a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.centered-link a:hover {
+  color: var(--secondary-color);
+}
+
+/* Supprimer le point noir de la liste non ordonnée */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.employee-list-container{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: grid;
+  justify-content: center;
 }
