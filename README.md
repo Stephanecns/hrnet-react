@@ -1,70 +1,144 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# HRnet
 
-In the project directory, you can run:
+HRnet est une application interne utilisée pour créer et visualiser les employés d'une entreprise. Ce projet a été réalisé en convertissant plusieurs plugins jQuery en composants React pour moderniser l'application et améliorer les performances.
 
-### `npm start`
+## Table des matières
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. [Présentation](#présentation)
+2. [Installation](#installation)
+3. [Utilisation](#utilisation)
+4. [Composants convertis de jQuery à React](#composants-convertis-de-jquery-à-react)
+5. [Structure du projet](#structure-du-projet)
+6. [Auteurs](#auteurs)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Présentation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+L'application HRnet permet aux utilisateurs de créer des employés via un formulaire et d'afficher la liste des employés déjà enregistrés. 
 
-### `npm run build`
+- **Page principale** : Permet la création d'un employé via un formulaire contenant les informations de base de l'employé (prénom, nom, date de naissance, etc.).
+- **Page de liste des employés** : Affiche les employés sous forme de tableau interactif (DataTable).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Cloner le projet** :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   git clone https://github.com/tonnomutilisateur/HRnet.git
+   cd HRnet
+   ```
 
-### `npm run eject`
+2. **Installer les dépendances** :
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   Avant de démarrer l'application, installe toutes les dépendances nécessaires via npm :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Lancer l'application** :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   Une fois les dépendances installées, démarre l'application avec la commande suivante :
 
-## Learn More
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   L'application sera accessible sur `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Utilisation
 
-### Code Splitting
+- **Créer un employé** : Accédez à la page principale, remplissez le formulaire, et cliquez sur "Save" pour enregistrer l'employé.
+- **Voir la liste des employés** : Cliquez sur "View Employee List" pour accéder à la liste des employés déjà enregistrés.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Composants convertis de jQuery à React
 
-### Analyzing the Bundle Size
+### 1. **DatePicker**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Le composant **DatePicker** est une conversion du plugin jQuery `datetimepicker`. Ce composant permet à l'utilisateur de sélectionner une date dans un format spécifique.
 
-### Making a Progressive Web App
+- **Fichier** : `src/components/DatePicker.js`
+- **Props** :
+  - `label` (string) : Le label affiché au-dessus du sélecteur de date.
+  - `selectedDate` (Date) : La date actuellement sélectionnée.
+  - `onChange` (function) : Fonction de callback qui met à jour la date sélectionnée.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Exemple d'utilisation** :
 
-### Advanced Configuration
+  ```jsx
+  <CustomDatePicker
+    label="Date of Birth"
+    selectedDate={dateOfBirth}
+    onChange={setDateOfBirth}
+  />
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 2. **Dropdown**
 
-### Deployment
+Le composant **Dropdown** est une conversion d'un sélecteur jQuery. Il permet à l'utilisateur de sélectionner un élément dans une liste déroulante.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Fichier** : `src/components/Dropdown.js`
+- **Props** :
+  - `label` (string) : Le label affiché au-dessus du menu déroulant.
+  - `options` (array) : Tableau contenant les options à afficher dans la liste déroulante.
+  - `selectedValue` (string) : La valeur actuellement sélectionnée.
+  - `onChange` (function) : Fonction de callback qui met à jour la valeur sélectionnée.
 
-### `npm run build` fails to minify
+- **Exemple d'utilisation** :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ```jsx
+  <Dropdown
+    label="Department"
+    options={departments}
+    selectedValue={department}
+    onChange={setDepartment}
+  />
+  ```
+
+### 3. **ConfirmationModal**
+
+Le composant **ConfirmationModal** est une conversion du plugin jQuery `modal`. Ce composant affiche une fenêtre modale confirmant que l'employé a bien été créé.
+
+- **Fichier** : `src/components/ConfirmationModal.js`
+- **Props** :
+  - `isOpen` (bool) : Définit si la modale est ouverte ou fermée.
+  - `onClose` (function) : Fonction de callback appelée pour fermer la modale.
+
+- **Exemple d'utilisation** :
+
+  ```jsx
+  <ConfirmationModal
+    isOpen={isModalOpen}
+    onClose={() => setIsModalOpen(false)}
+  />
+  ```
+
+## Structure du projet
+
+Le projet est structuré de manière à séparer les composants, les pages et les fichiers de styles :
+
+```
+HRnet/
+│
+├── src/
+│   ├── components/        # Composants réutilisables
+│   ├── pages/             # Pages principales de l'application
+│   ├── App.js             # Composant principal de l'application
+│   ├── App.css            # Styles généraux de l'application
+│   └── index.js           # Point d'entrée de l'application
+│
+├── public/                # Fichiers publics (index.html, favicon, etc.)
+│
+└── package.json           # Dépendances et scripts npm
+```
+
+## Auteurs
+
+- **Stéphane Cineas** : Développeur React et auteur de ce projet.
+
+---
+
