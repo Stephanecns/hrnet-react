@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import CreateEmployee from '../src/pages/CreateEmployee';
+import EmployeeList from '../src/pages/EmployeeList';
 import './App.css';
 
-function App() {
+const Navigation = () => {
+  const location = useLocation(); // Utilisé pour obtenir le chemin actuel
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <nav>
+      <ul>
+        {location.pathname === '/' ? (
+          <li>
+            <Link to="/employee-list"></Link>
+          </li>
+        ) : (
+          <li>
+            <Link to="/"></Link>
+          </li>
+        )}
+      </ul>
+    </nav>
   );
-}
+};
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        {/* Afficher la navigation conditionnelle */}
+        <Navigation />
+
+        {/* Définition des routes pour chaque page */}
+        <Routes>
+          <Route path="/" element={<CreateEmployee />} />
+          <Route path="/employee-list" element={<EmployeeList />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
 export default App;
