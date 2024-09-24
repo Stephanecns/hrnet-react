@@ -1,13 +1,15 @@
+//Migration vers la bibliothèque React qui remplit le même rôle que DataTables dans l'ancienne version
 import React, { useState, useEffect } from 'react';
+// Importation de la bibliothèque DataTable pour afficher les données dans un tableau avec des fonctionnalités comme la pagination
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header'; // Import du header
+import Header from '../components/Header'; 
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    // Récupérer les employés stockés dans localStorage
+    // Récupérer les employés stockés dans localStorage (ou tableau vide s'il n'y a aucun employé)
     const savedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
     setEmployees(savedEmployees);
   }, []);
