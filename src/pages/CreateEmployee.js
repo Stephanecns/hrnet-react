@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import CustomDatePicker from '../components/DatePicker';
+import CustomDatePicker from 'react-datepicker-component-stephoc';
 import Dropdown from '../components/Dropdown';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { Link } from 'react-router-dom';
