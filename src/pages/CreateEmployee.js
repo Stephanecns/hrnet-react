@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CustomDatePicker from '../components/DatePicker';
 import Dropdown from '../components/Dropdown';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header'; // Import du header
+import Header from '../components/Header'; 
+import { EmployeeContext } from '../EmployeeContext'; // Importation du contexte
 
 // Liste des départements
 const departments = [
@@ -26,7 +27,6 @@ const states = [
   { label: 'Connecticut', value: 'CT' },
   { label: 'Delaware', value: 'DE' },
   { label: 'District Of Columbia', value: 'DC' },
-  { label: 'Federated States Of Micronesia', value: 'FM' },
   { label: 'Florida', value: 'FL' },
   { label: 'Georgia', value: 'GA' },
   { label: 'Guam', value: 'GU' },
@@ -77,7 +77,6 @@ const states = [
   { label: 'Wyoming', value: 'WY' }
 ];
 
-
 const CreateEmployee = () => {
   // States pour stocker les informations du formulaire
   const [firstName, setFirstName] = useState('');
@@ -91,7 +90,10 @@ const CreateEmployee = () => {
   const [department, setDepartment] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Fonction pour sauvegarder l'employé dans le localStorage
+  // Utiliser le contexte des employés
+  const { addEmployee } = useContext(EmployeeContext);
+
+  // Fonction pour sauvegarder l'employé via le contexte
   const saveEmployee = (event) => {
     event.preventDefault();
 
@@ -107,108 +109,106 @@ const CreateEmployee = () => {
       department
     };
 
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    employees.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+    addEmployee(employee); // Ajout de l'employé via le contexte
 
     // Ouvre la modale de confirmation
     setIsModalOpen(true);
   };
 
   return (
-    <> <Header />
-    <div className="create-employee-container">
-      <h2>Create Employee</h2>
-      <form onSubmit={saveEmployee}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
+    <> 
+      <Header />
+      <div className="create-employee-container">
+        <h2>Create Employee</h2>
+        <form onSubmit={saveEmployee}>
+          <div className="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          
+          <CustomDatePicker 
+            label="Date of Birth"
+            selectedDate={dateOfBirth}
+            onChange={setDateOfBirth}
+            className="form-group" 
           />
-        </div>
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
+          <CustomDatePicker
+            label="Start Date"
+            selectedDate={startDate}
+            onChange={setStartDate}
+            className="form-group" 
           />
-        </div>
-        
-        <CustomDatePicker 
-          label="Date of Birth"
-          selectedDate={dateOfBirth}
-          onChange={setDateOfBirth}
-          className="form-group" 
-        />
-        <CustomDatePicker
-          label="Start Date"
-          selectedDate={startDate}
-          onChange={setStartDate}
-          className="form-group" 
-        />
-        <div className="form-group">
-          <label>Street</label>
-          <input
-            type="text"
-            value={street}
-            onChange={(e) => setStreet(e.target.value)}
-            required
+          <div className="form-group">
+            <label>Street</label>
+            <input
+              type="text"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>City</label>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              required
+            />
+          </div>
+          <Dropdown
+            label="State"
+            options={states}
+            selectedValue={state}
+            onChange={setState}
+            className="form-group" 
           />
-        </div>
-        <div className="form-group">
-          <label>City</label>
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            required
+          <div className="form-group">
+            <label>Zip Code</label>
+            <input
+              type="number"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              required
+            />
+          </div>
+          <Dropdown
+            label="Department"
+            options={departments}
+            selectedValue={department}
+            onChange={setDepartment}
+            className="form-group" 
           />
-        </div>
-        <Dropdown
-          label="State"
-          options={states}
-          selectedValue={state}
-          onChange={setState}
-          className="form-group" 
-        />
-        <div className="form-group">
-          <label>Zip Code</label>
-          <input
-            type="number"
-            value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
-            required
-            
-          />
-        </div>
-        <Dropdown
-          label="Department"
-          options={departments}
-          selectedValue={department}
-          onChange={setDepartment}
-          className="form-group" 
-        />
-        <div className="button-group">
-          <button type="submit">Save</button>
-        </div>
-      </form>
+          <div className="button-group">
+            <button type="submit">Save</button>
+          </div>
+        </form>
 
-            {/* Lien vers la liste des employés */}
-            <div className="view-employee-link">
-        <Link to="/employee-list">View Employee List</Link>
+        {/* Lien vers la liste des employés */}
+        <div className="view-employee-link">
+          <Link to="/employee-list">View Employee List</Link>
+        </div>
+
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
-  
-    <ConfirmationModal
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-    />
-  </div> 
-  </> 
+    </> 
   );
 };
 
